@@ -59,7 +59,7 @@ Traditional supply chain management systems are **reactive**, requiring manual i
 - **Execution Tracking**: Complete audit trail of all agent actions
 
 ### 🤖 Advanced AI Capabilities
-Powered by **Google Cloud AI** (Project ID: `leadership-board-api`):
+Powered by **Google Cloud AI**:
 
 1. **🌐 Multilingual Translation** - Communicate with suppliers in 100+ languages
 2. **👁️ Document Intelligence** - OCR for invoices, receipts, shipping documents
@@ -70,17 +70,16 @@ Powered by **Google Cloud AI** (Project ID: `leadership-board-api`):
 7. **📄 Smart Document Generation** - Auto-generate reports and summaries
 
 ### ⚡ 5 Essential Composio Integrations
-**API Key**: `ak_Ez3L56MGyzV0TIuKcfLY`
 
 | Platform | Use Case | Status |
 |----------|----------|--------|
-| **Gmail** 📧 | Automated stock alert emails | ✅ **Configured** (Entity: ac_8xS2FGOG-DAD) |
+| **Gmail** 📧 | Automated stock alert emails | ✅ **Configured** |
 | **Slack** 💬 | Real-time team notifications | 🔌 Connect at [app.composio.dev](https://app.composio.dev) |
-| **Google Sheets** 📊 | Inventory data logging | ✅ **Configured** ([View Sheet](https://docs.google.com/spreadsheets/d/1qcdOOAGJ50HfWJFlrQ3WUcrq0kjSUauVt5eBQAtGkHw/edit)) |
+| **Google Sheets** 📊 | Inventory data logging | ✅ **Configured** |
 | **Google Calendar** 📅 | Supplier meeting scheduling | 🔌 Connect at [app.composio.dev](https://app.composio.dev) |
 | **Google Drive** 💾 | Document & report storage | ✅ **Configured** |
 
-**Note**: Email notifications for password reset/invitations use Django's SMTP (venkatesh.k21062005@gmail.com), while LOGI-BOT stock alerts use Composio Gmail integration.
+**Note**: Email notifications for password reset/invitations use Django's SMTP, while LOGI-BOT stock alerts use Composio Gmail integration.
 
 ### 📊 Real-Time Dashboard Features
 - **Stock Count Management**: Visual charts, heatmaps, and inventory analytics
@@ -96,13 +95,11 @@ Powered by **Google Cloud AI** (Project ID: `leadership-board-api`):
 ### **Email System (Two Methods)**
 
 **1. Django SMTP Email** (For User Management)
-- **Account**: venkatesh.k21062005@gmail.com  
 - **Uses**: Password reset, company invitations, OTP verification
 - **Method**: Direct SMTP connection to Gmail servers
 - **Config**: `EMAIL_HOST_USER` + `EMAIL_HOST_PASSWORD` in `.env`
 
 **2. Composio Gmail** (For Automated Alerts)
-- **Entity ID**: ac_8xS2FGOG-DAD (OAuth authenticated)
 - **Uses**: LOGI-BOT stock alerts, supplier notifications
 - **Method**: Composio Tool Router API with OAuth
 - **Config**: `COMPOSIO_GMAIL_ENTITY_ID` in `.env`
@@ -110,7 +107,7 @@ Powered by **Google Cloud AI** (Project ID: `leadership-board-api`):
 
 ### **Google Sheets Integration**
 
-📊 **Live Sheet**: [View Inventory Log](https://docs.google.com/spreadsheets/d/1qcdOOAGJ50HfWJFlrQ3WUcrq0kjSUauVt5eBQAtGkHw/edit)
+📊 **Live Sheet**: Auto-logs all stock alerts with timestamps
 
 - **Purpose**: Auto-logs all stock alerts with timestamps
 - **Columns**: Product Name, Current Stock, Required Stock, Alert Time, Status
@@ -182,17 +179,17 @@ Before starting, ensure you have:
 ### Required Credentials
 
 #### 1. Google Cloud AI (Required for AI features)
-- **Project ID**: `leadership-board-api`
-- **API Key**: `AIzaSyA7M0xjkhp866TznL1y7H8gnh1GvynW1F8`
+- **Project ID**: `your-google-cloud-project-id`
+- **API Key**: `your-google-cloud-api-key`
 - [Get Google Cloud API Key](https://console.cloud.google.com/apis/credentials)
 
 #### 2. Composio (Required for integrations)
-- **API Key**: `ak_Ez3L56MGyzV0TIuKcfLY`
-- **Gmail Entity ID**: `ac_8xS2FGOG-DAD` (pre-configured)
+- **API Key**: `your-composio-api-key`
+- **Gmail Entity ID**: `your-gmail-entity-id` (configure after setup)
 - [Get Composio API Key](https://app.composio.dev/settings/api-keys)
 
 #### 3. Google Sheets (Optional - for data logging)
-- **Sheet ID**: `1qcdOOAGJ50HfWJFlrQ3WUcrq0kjSUauVt5eBQAtGkHw`
+- **Sheet ID**: `your-google-sheet-id`
 - [Create Google Sheet](https://sheets.google.com/)
 
 ---
@@ -233,15 +230,15 @@ pip install -r requirements.txt
 DATABASE_URL=sqlite:///./db.sqlite3
 
 # Composio API
-COMPOSIO_API_KEY=ak_Ez3L56MGyzV0TIuKcfLY
-COMPOSIO_GMAIL_ENTITY_ID=ac_8xS2FGOG-DAD
+COMPOSIO_API_KEY=your-composio-api-key
+COMPOSIO_GMAIL_ENTITY_ID=your-gmail-entity-id
 
 # Google Cloud AI
-GOOGLE_CLOUD_API_KEY=AIzaSyA7M0xjkhp866TznL1y7H8gnh1GvynW1F8
-GOOGLE_CLOUD_PROJECT_ID=leadership-board-api
+GOOGLE_CLOUD_API_KEY=your-google-cloud-api-key
+GOOGLE_CLOUD_PROJECT_ID=your-google-cloud-project-id
 
 # Google Sheets (Optional)
-GOOGLE_SHEET_ID=1qcdOOAGJ50HfWJFlrQ3WUcrq0kjSUauVt5eBQAtGkHw
+GOOGLE_SHEET_ID=your-google-sheet-id
 
 # Email (Optional - for password reset)
 EMAIL_HOST_USER=your-email@gmail.com
@@ -340,7 +337,7 @@ Frontend will run at: **http://localhost:3000/**
    - See 5 essential platforms optimized for supply chain management
    - Pre-configured: Gmail (email alerts), Sheets (data logging), Drive (document storage)
 
-3. **Test Gmail Integration** (Pre-configured):
+3. **Test Gmail Integration**:
    ```javascript
    // Fill form:
    To: your-email@example.com
@@ -353,7 +350,7 @@ Frontend will run at: **http://localhost:3000/**
 
 4. **Connect Additional Platforms** (Optional):
    - Visit: https://app.composio.dev
-   - Login with API key: `ak_Ez3L56MGyzV0TIuKcfLY`
+   - Login with your API key
    - Connect **Slack** for team notifications
    - Connect **Calendar** for automated meeting scheduling
    - Return to dashboard and test
@@ -583,7 +580,7 @@ GET /api/count/?company={company_id}
    https://app.composio.dev
    ```
 
-2. **Login/Sign Up** using API key: `ak_Ez3L56MGyzV0TIuKcfLY`
+2. **Login/Sign Up** using your Composio API key
 
 3. **Connect Desired Platforms**:
    - Click "Add Integration"
@@ -751,7 +748,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Project**: AI Supply Chain Management System  
 **Organization**: Amrita Vishwa Vidyapeetham  
 **Repository**: https://github.com/venkatesh21bit/AI-supplychain  
-**Contact**: venkatesh.k21062005@gmail.com
 
 ---
 
@@ -767,8 +763,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For issues, questions, or demo requests:
-- 📧 Email: venkatesh.k21062005@gmail.com
-- 🐛 Issues: [GitHub Issues](https://github.com/venkatesh21bit/AI-supplychain/issues)
+-  Issues: [GitHub Issues](https://github.com/venkatesh21bit/AI-supplychain/issues)
 - 📚 Documentation: See `COMPOSIO_INTEGRATIONS_GUIDE.md`
 
 ---
