@@ -34,6 +34,11 @@ try:
         send_email_notification, update_tracking_sheet, schedule_meeting,
         create_github_issue, get_composio_status
     )
+    from .composio_extended_views import (
+        get_connected_integrations, create_trello_card, send_discord_message,
+        send_teams_message, create_notion_page, create_github_issue as create_github_issue_ext,
+        upload_to_google_drive, send_telegram_message, get_integration_stats
+    )
     COMPOSIO_FEATURES_AVAILABLE = True
 except ImportError:
     COMPOSIO_FEATURES_AVAILABLE = False
@@ -166,23 +171,74 @@ if COMPOSIO_FEATURES_AVAILABLE:
         path('agent/composio/asana-task/', create_asana_task, name='composio_asana_task'),
         
         # Gmail Notifications
-        path('agent/composio/email-notify/', send_email_notification, name='composio_email_notify'),
+        path('agent/composio/gmail-send/', send_email_notification, name='composio_email_notify'),
         
         # Google Sheets Tracking
-        path('agent/composio/update-sheet/', update_tracking_sheet, name='composio_update_sheet'),
+        path('agent/composio/sheets-update/', update_tracking_sheet, name='composio_update_sheet'),
         
         # Calendar Scheduling
-        path('agent/composio/schedule-meeting/', schedule_meeting, name='composio_schedule_meeting'),
+        path('agent/composio/calendar-event/', schedule_meeting, name='composio_schedule_meeting'),
         
         # GitHub Issue Tracking
         path('agent/composio/github-issue/', create_github_issue, name='composio_github_issue'),
         
         # Composio Status and Integration Info
         path('agent/composio/status/', get_composio_status, name='composio_status'),
+        
+        # ========= EXTENDED INTEGRATIONS =========
+        # Get All Connected Integrations
+        path('agent/composio/integrations/', get_connected_integrations, name='composio_integrations'),
+        
+        # Trello Integration
+        path('agent/composio/trello-card/', create_trello_card, name='composio_trello_card'),
+        
+        # Discord Integration
+        path('agent/composio/discord-message/', send_discord_message, name='composio_discord_message'),
+        
+        # Microsoft Teams Integration
+        path('agent/composio/teams-message/', send_teams_message, name='composio_teams_message'),
+        
+        # Notion Integration
+        path('agent/composio/notion-page/', create_notion_page, name='composio_notion_page'),
+        
+        # Google Drive Integration
+        path('agent/composio/drive-upload/', upload_to_google_drive, name='composio_drive_upload'),
+        
+        # Telegram Integration
+        path('agent/composio/telegram-message/', send_telegram_message, name='composio_telegram_message'),
+        
+        # Integration Statistics
+        path('agent/composio/stats/', get_integration_stats, name='composio_stats'),
     ]
     
     # Add Composio endpoints to main urlpatterns
     urlpatterns.extend(composio_urlpatterns)
+
+# Integration Management Endpoints
+try:
+    from .integration_views import (
+        IntegrationConfigViewSet,
+        get_integration_logs,
+        get_available_integrations
+    )
+    from rest_framework.routers import DefaultRouter
+    
+    # Create router for ViewSet
+    integration_router = DefaultRouter()
+    integration_router.register(r'integrations/config', IntegrationConfigViewSet, basename='integration-config')
+    
+    integration_urlpatterns = [
+        # Integration Management
+        path('integrations/available/', get_available_integrations, name='available_integrations'),
+        path('integrations/logs/', get_integration_logs, name='integration_logs'),
+    ]
+    
+    # Add integration endpoints to main urlpatterns
+    urlpatterns.extend(integration_urlpatterns)
+    urlpatterns.extend(integration_router.urls)
+
+except ImportError as e:
+    print(f"⚠️ Integration views not loaded: {str(e)}")
 
 # ✅ Support API requests with format suffixes (e.g., /orders.json, /orders.xml)
 #urlpatterns = format_suffix_patterns(urlpatterns, allowed=["json", "html"])

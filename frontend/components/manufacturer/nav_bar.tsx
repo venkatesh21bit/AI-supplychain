@@ -6,12 +6,13 @@ import Anchor from "@/components/retailer/anchor";
 export const NAVLINKS = [
   { title: "Dashboard", href: "/manufacturer" },
   { title: "LOGI-BOT", href: "/manufacturer/logibot-dashboard" },
-  { title: "🤖 AI Features", href: "/manufacturer/ai-features" },
+  { title: "AI Features", href: "/manufacturer/ai-features" },
+  { title: "Integrations", href: "/manufacturer/composio-integrations" },
+  { title: "Stock Count", href: "/manufacturer/stockCount" },
   { title: "Accounting", href: "/manufacturer/accounting" },
-  { title: "StockCount", href: "/manufacturer/stockCount" },
-  { title: "Profile", href: "/manufacturer/profile" },
   { title: "Configuration", href: "/manufacturer/configuration" },
   { title: "Company", href: "/manufacturer/company" },
+  { title: "Profile", href: "/manufacturer/profile" },
 ];
 
 export function Navbar() {
